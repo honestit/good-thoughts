@@ -1,2 +1,8 @@
-# good-thoughts
-It's all about Good Thoughts!
+# Dobre Myśli
+
+> ********************************************************************************
+> *                                                                              *
+> *  Twoje życie nie poprawia się przez przypadek. Poprawia się dzięki zmianie.  *
+> *                                                                --- Jim Rohn  *
+> *                                                                              *
+> ********************************************************************************
