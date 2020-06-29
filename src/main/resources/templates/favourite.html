@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="#{homepage.window.title}"></title>
+    <link rel="stylesheet" href="/webjars/bulma/0.8.2/css/bulma.min.css">
+    <script src="/webjars/font-awesome/5.13.0/js/all.min.js"></script>
+</head>
+<body>
+<section class="hero is-light is-fullheight">
+    <div class="hero-head">
+        <header class="navbar">
+            <div class="container">
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" th:href="@{~/}"
+                           th:text="#{navbar.default_quote}"></a>
+                        <a class="navbar-item" th:href="@{~/quotes/favourite}"
+                           th:text="#{navbar.favourite_quotes}"></a>
+                        <a class="navbar-item" href="?lang=pl">
+                            <span class="icon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span>PL</span>
+                        </a>
+                        <a class="navbar-item" href="?lang=en">
+                            <span class="icon">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span>EN</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="hero-body has-background-white">
+        <div class="container">
+            <div class="tile is-ancestor" th:each="counter : ${quotesMap.keySet()}">
+                <div class="tile is-parent" th:each="quote : ${quotesMap.get(counter)}">
+                    <th:block th:if="${!#locale.getLanguage().equals('pl')}">
+                        <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title has-text-centered" th:text="${quote.content}"></p><br/>
+                            <p class="subtitle has-text-right is-italic"
+                               th:text="${'--- ' + quote.author}"></p>
+                        </article>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${#locale.getLanguage().equals('pl')}">
+                        <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title has-text-centered" th:text="${quote.translation}"></p><br/>
+                            <p class="subtitle has-text-right is-italic"
+                               th:text="${'--- ' + quote.author}"></p>
+                        </article>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-foot">
+        <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+                <ul>
+                    <li class="is-white" th:each="cat : ${categories}">
+                        <a th:href="@{/quotes/favourite/{category}(category=${cat.name().toLowerCase()})}"
+                           th:text="#{${'navbar.category.' + cat.name().toLowerCase()}}"></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
+</body>
+</html>
